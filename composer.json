@@ -1,0 +1,17 @@
+{
+    "name": "czaru/advent_of_code_2022",
+    "require": {
+        "smarty/smarty": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Piotr Celinski",
+            "email": "czaru25@gmail.com"
+        }
+    ]
+}

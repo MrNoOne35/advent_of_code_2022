@@ -1,0 +1,45 @@
+html, body{
+    font-family: Arial, serif;
+}
+
+nav{
+    margin-bottom: 10px;
+}
+
+.solution{
+    color: darkgreen;
+}
+
+nav a{
+    display: inline-block;
+    background-color: #eeeeee;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    color: #333333;
+    text-decoration: none;
+
+}
+
+nav a:hover{
+    background-color: #dddddd;
+    border: 1px solid #bbbbbb;
+}
+
+nav a.selected{
+    background-color: #333333;
+    color: #eeeeee;
+}
+
+.puzzle_inputs li{
+    margin-bottom: 10px;
+}
+
+.puzzle_inputs li a{
+    text-decoration: none;
+    color: #333333;
+}
+
+.puzzle_inputs li a.selected{
+    font-weight: bold;
+}
