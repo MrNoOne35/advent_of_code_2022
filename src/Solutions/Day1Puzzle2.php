@@ -21,6 +21,7 @@ class Day1Puzzle2 implements SolutionInterface {
         $elves = [];
         $number = 1;
 
+        // loop throught data, set elves and sum theirs calories into the array
         foreach($this->data as $calorie){
             if(is_numeric($calorie)){
                 if(!isset($elves[$number])){
