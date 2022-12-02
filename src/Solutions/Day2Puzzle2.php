@@ -53,7 +53,7 @@ class Day2Puzzle2 implements SolutionInterface {
      */
     public function getPlayerPoints(int $enemy, int $player): int
     {
-        // Tie
+        // Draw
         if($enemy == $player){
             return 3;
         }
