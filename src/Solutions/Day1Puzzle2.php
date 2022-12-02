@@ -7,16 +7,16 @@ use App\Interfaces\SolutionInterface;
 class Day1Puzzle2 implements SolutionInterface {
 
     private string $inputPath;
-    private $data = [];
+    private array $data = [];
 
     public function __construct(string $inputPath)
     {
         $this->inputPath = $inputPath;
     }
 
-    public function execute()
+    public function execute(): array
     {
-        $this->prepeareData();
+        $this->prepareData();
 
         $elves = [];
         $number = 1;
@@ -51,7 +51,7 @@ class Day1Puzzle2 implements SolutionInterface {
         ];
     }
 
-    private function prepeareData()
+    private function prepareData()
     {
         $this->data = file($this->inputPath);
 
