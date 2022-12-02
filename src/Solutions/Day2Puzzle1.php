@@ -33,7 +33,7 @@ class Day2Puzzle1 implements SolutionInterface {
             $enemy = $this->mappings[$match[0]];
             $player = $this->mappings[$match[1]];
 
-            $solution += $this->check($enemy, $player) + $player;
+            $solution += $this->getPlayerPoints($enemy, $player) + $player;
         }
 
         return [
@@ -47,7 +47,7 @@ class Day2Puzzle1 implements SolutionInterface {
      * @param int $player
      * @return int
      */
-    public function check(int $enemy, int $player): int
+    public function getPlayerPoints(int $enemy, int $player): int
     {
         // Tie
         if($enemy == $player){

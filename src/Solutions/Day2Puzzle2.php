@@ -16,9 +16,9 @@ class Day2Puzzle2 implements SolutionInterface {
     ];
 
     private array $outcome = [
-        'X' => -1,
-        'Y' => 0,
-        'Z' => 1
+        'X' => -1, // Lose
+        'Y' => 0,  // Draw
+        'Z' => 1   // Win
     ];
 
     public function __construct(string $inputPath)
@@ -35,9 +35,9 @@ class Day2Puzzle2 implements SolutionInterface {
         foreach($this->data as $match){
             $enemy = $this->mappings[$match[0]];
             $outcome = $this->outcome[$match[1]];
-            $player = $this->getChoice($enemy, $outcome);
+            $player = $this->getPlayerChoice($enemy, $outcome);
 
-            $solution += $this->check($enemy, $player) + $player;
+            $solution += $this->getPlayerPoints($enemy, $player) + $player;
         }
 
         return [
@@ -51,7 +51,7 @@ class Day2Puzzle2 implements SolutionInterface {
      * @param int $player
      * @return int
      */
-    public function check(int $enemy, int $player): int
+    public function getPlayerPoints(int $enemy, int $player): int
     {
         // Tie
         if($enemy == $player){
@@ -73,7 +73,7 @@ class Day2Puzzle2 implements SolutionInterface {
      * @param int $outcome
      * @return int
      */
-    public function getChoice(int $enemy, int $outcome): int
+    public function getPlayerChoice(int $enemy, int $outcome): int
     {
         // Must win
         if($outcome > 0){
