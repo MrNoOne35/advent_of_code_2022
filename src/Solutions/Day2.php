@@ -3,8 +3,9 @@
 namespace App\Solutions;
 
 use App\Interfaces\SolutionInterface;
+use JetBrains\PhpStorm\Pure;
 
-class Day2Puzzle1 implements SolutionInterface {
+class Day2 implements SolutionInterface {
 
     private string $inputPath;
     private array $data = [];
@@ -18,15 +19,20 @@ class Day2Puzzle1 implements SolutionInterface {
         'Z' => 3
     ];
 
+    private array $outcome = [
+        'X' => -1, // Lose
+        'Y' => 0,  // Draw
+        'Z' => 1   // Win
+    ];
+
     public function __construct(string $inputPath)
     {
         $this->inputPath = $inputPath;
+        $this->prepareData();
     }
 
-    public function execute(): array
+    #[Pure] public function puzzle1(): ?int
     {
-        $this->prepareData();
-
         $solution = 0;
 
         foreach($this->data as $match){
@@ -36,9 +42,22 @@ class Day2Puzzle1 implements SolutionInterface {
             $solution += $this->getPlayerPoints($enemy, $player) + $player;
         }
 
-        return [
-            'solution' => $solution
-        ];
+        return $solution;
+    }
+
+    #[Pure] public function puzzle2(): ?int
+    {
+        $solution = 0;
+
+        foreach($this->data as $match){
+            $enemy = $this->mappings[$match[0]];
+            $outcome = $this->outcome[$match[1]];
+            $player = $this->getPlayerChoice($enemy, $outcome);
+
+            $solution += $this->getPlayerPoints($enemy, $player) + $player;
+        }
+
+        return $solution;
     }
 
     /**
@@ -61,6 +80,26 @@ class Day2Puzzle1 implements SolutionInterface {
         else {
             return 6;
         }
+    }
+
+    /**
+     * Return player choice based on outcome
+     * @param int $enemy
+     * @param int $outcome
+     * @return int
+     */
+    public function getPlayerChoice(int $enemy, int $outcome): int
+    {
+        // Must win
+        if($outcome > 0){
+            return ($enemy % 3) + 1;
+        }
+        // Must lose
+        else if ($outcome < 0){
+            return ($enemy - 1) % 3 ?: 3;
+        }
+        // Must draw
+        else return $enemy;
     }
 
     private function prepareData()

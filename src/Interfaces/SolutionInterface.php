@@ -4,6 +4,7 @@ namespace App\Interfaces;
 
 interface SolutionInterface {
 
-    public function execute();
+    public function puzzle1(): ?int;
+    public function puzzle2(): ?int;
 
 }

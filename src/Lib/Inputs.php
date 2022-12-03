@@ -8,7 +8,6 @@ class Inputs {
 
     private Smarty $smarty;
     private ?int $day = null;
-    private ?int $puzzle = null;
 
     public function __construct(
         Smarty $smarty,
@@ -25,8 +24,8 @@ class Inputs {
     {
         $inputs = [];
 
-        if($this->day && $this->puzzle){
-            $path = sprintf('public/puzzles/day%d/puzzle%d', $this->day, $this->puzzle);
+        if($this->day){
+            $path = sprintf('public/puzzles/%d', $this->day);
             $files = array_diff(scandir($path), array('..', '.'));
 
             foreach($files as $file){
@@ -34,7 +33,7 @@ class Inputs {
                 $info = pathinfo($filepath);
                 $inputs[] = [
                     'name' => $info['filename'],
-                    'url' => sprintf('%s?day=%d&puzzle=%d&input=%s', APP_URL, $this->day, $this->puzzle, $info['filename'])
+                    'url' => sprintf('%s?day=%d&input=%s', APP_URL, $this->day, $info['filename'])
                 ];
             }
         }

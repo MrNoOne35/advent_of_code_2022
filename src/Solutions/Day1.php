@@ -4,7 +4,7 @@ namespace App\Solutions;
 
 use App\Interfaces\SolutionInterface;
 
-class Day1Puzzle2 implements SolutionInterface {
+class Day1 implements SolutionInterface {
 
     private string $inputPath;
     private array $data = [];
@@ -12,12 +12,38 @@ class Day1Puzzle2 implements SolutionInterface {
     public function __construct(string $inputPath)
     {
         $this->inputPath = $inputPath;
+        $this->prepareData();
     }
 
-    public function execute(): array
+    public function puzzle1(): ?int
     {
-        $this->prepareData();
+        $elves = $this->getSortedElves();
 
+        // Sort elves desc by theirs calories
+        arsort($elves);
+
+        return reset($elves);
+    }
+
+    public function puzzle2(): ?int
+    {
+        $elves = $this->getSortedElves();
+
+        // Sort elves desc by theirs calories
+        arsort($elves);
+
+        // get 3 highest calories
+
+        $winner = array_slice($elves, 0, 3, true);
+
+        // sum 3 highest calories
+        $sum = array_sum($winner);
+
+        return $sum;
+    }
+
+    private function getSortedElves(): array
+    {
         $elves = [];
         $number = 1;
 
@@ -35,20 +61,7 @@ class Day1Puzzle2 implements SolutionInterface {
             }
         }
 
-        // Sort elves desc by theirs calories
-        arsort($elves);
-
-        // get 3 highest calories
-        $winner = array_slice($elves, 0, 3, true);
-
-        // sum 3 highest calories
-        $sum = array_sum($winner);
-
-        return [
-            'solution' => $sum,
-            'elves' => $elves,
-            'winner' => $winner
-        ];
+        return $elves;
     }
 
     private function prepareData()

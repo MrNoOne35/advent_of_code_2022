@@ -14,7 +14,6 @@ class Day implements StartInterface
 {
     private Smarty $smarty;
     private ?int $day = null;
-    private ?int $puzzle = null;
     private ?string $input = null;
     private Nav $nav;
     private Inputs $inputs;
@@ -22,16 +21,14 @@ class Day implements StartInterface
     public function __construct(
         Smarty $smarty,
         int $day = null,
-        int $puzzle = null,
         string $input = null
     )
     {
         $this->smarty = $smarty;
         $this->day = $day;
-        $this->puzzle = $puzzle;
         $this->input = $input;
         $this->nav = new Nav($smarty);
-        $this->inputs = new Inputs($smarty, $day, $puzzle);
+        $this->inputs = new Inputs($smarty, $day);
 
         $this->nav->init();
         $this->inputs->init();
@@ -43,9 +40,9 @@ class Day implements StartInterface
      */
     public function start()
     {
-        if($this->day && $this->puzzle && $this->input){
-            $classname = sprintf('App\Solutions\Day%dPuzzle%d', $this->day, $this->puzzle);
-            $puzzleinput = sprintf('public/puzzles/day%d/puzzle%d/%s.txt', $this->day, $this->puzzle, $this->input);
+        if($this->day && $this->input){
+            $classname = sprintf('App\Solutions\Day%d', $this->day);
+            $puzzleinput = sprintf('public/puzzles/%d/%s.txt', $this->day, $this->input);
 
             if(!class_exists($classname)){
                 throw new Exception(sprintf('There is no solution with class name %s', $classname));
@@ -57,9 +54,11 @@ class Day implements StartInterface
 
             /** @var SolutionInterface $solution */
             $solution = new $classname($puzzleinput);
-            $result = $solution->execute();
+            $puzzle1 = $solution->puzzle1();
+            $puzzle2 = $solution->puzzle2();
 
-            $this->smarty->assign('result', $result);
+            $this->smarty->assign('puzzle1', $puzzle1);
+            $this->smarty->assign('puzzle2', $puzzle2);
         }
 
         $this->smarty->display('Day.tpl');
