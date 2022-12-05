@@ -69,22 +69,27 @@ class Day5 implements SolutionInterface {
     {
         $input = file($this->inputPath);
 
-        $moves = false;
+        $isMoves = false;
         $layout = [];
 
         foreach($input as $key => $entry){
+
+            // Find point between crates layout and commands.
             if(empty(trim($entry))){
-                $moves = true;
+                $isMoves = true;
                 continue;
             }
 
-            if(!$moves) {
+            // If parsing layout, trim everything to simple array
+            if(!$isMoves) {
                $line = str_split(rtrim($entry), 4);
                $line = array_map(function($item){
                    return str_replace(['[', ']'], '', trim($item));
                }, $line);
                $layout[] = $line;
             }
+
+            // If parsing moves preg match moves into array of "moves", "from" and "to"
             else {
                 preg_match_all('!\d+!', trim($entry), $matches);
                 $match = reset($matches);
@@ -97,12 +102,13 @@ class Day5 implements SolutionInterface {
             }
         }
 
-        // Sort array by key desc
+        // Sort layout array by key desc. We want to start from bottom to top
         krsort($layout);
 
-        // remove first element of array. We dont need column numbers
+        // remove first element of array. We dont need column numbers. We get it by array index instead.
         $layout = array_slice($layout, 1);
 
+        // loop through layout columns and create arrays of column with letters from bottom to top
         for($i = 0; $i < count(reset($layout)); $i++){
             $columnNumber = $i + 1;
 
