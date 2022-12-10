@@ -4,24 +4,36 @@
 {include 'static/title.tpl'}
 
 {if $param_day && (isset($puzzle1) || isset($puzzle2))}
-    <hr />
+    <hr/>
     <h3>Puzzle 1 solution:
         {if isset($puzzle1)}
-            <b class="solution">{$puzzle1}</b>
+            {if is_numeric($puzzle1)}
+                <br><br>
+                <b class="solution">{$puzzle1}</b>
+            {else}
+                <br><br>
+                <pre class="solution">{$puzzle1}</pre>
+            {/if}
         {else}
             <b class="nosolution">No solution yet</b>
         {/if}
     </h3>
-    <hr />
-    <hr />
+    <hr/>
+    <hr/>
     <h3>Puzzle 2 solution:
         {if isset($puzzle2)}
-            <b class="solution">{$puzzle2}</b>
+            {if is_numeric($puzzle2)}
+                <br><br>
+                <b class="solution">{$puzzle2}</b>
+            {else}
+                <br><br>
+                <pre class="solution">{$puzzle2}</pre>
+            {/if}
         {else}
             <b class="nosolution">No solution yet</b>
         {/if}
     </h3>
-    <hr />
+    <hr/>
 {/if}
 
 {include 'static/footer.tpl'}
