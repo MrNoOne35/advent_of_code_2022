@@ -7,13 +7,8 @@
     <hr/>
     <h3>Puzzle 1 solution:
         {if isset($puzzle1)}
-            {if is_numeric($puzzle1)}
-                <br><br>
-                <b class="solution">{$puzzle1}</b>
-            {else}
-                <br><br>
-                <pre class="solution">{$puzzle1}</pre>
-            {/if}
+            <br>
+            <pre class="solution">{$puzzle1}</pre>
         {else}
             <b class="nosolution">No solution yet</b>
         {/if}
@@ -22,13 +17,8 @@
     <hr/>
     <h3>Puzzle 2 solution:
         {if isset($puzzle2)}
-            {if is_numeric($puzzle2)}
-                <br><br>
-                <b class="solution">{$puzzle2}</b>
-            {else}
-                <br><br>
-                <pre class="solution">{$puzzle2}</pre>
-            {/if}
+            <br>
+            <pre class="solution">{$puzzle2}</pre>
         {else}
             <b class="nosolution">No solution yet</b>
         {/if}
