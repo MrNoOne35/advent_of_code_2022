@@ -82,9 +82,9 @@ class Day12 implements SolutionInterface
      */
     private function getFirstRoomBySign(array $dungeon, string $sign): array
     {
-        foreach($dungeon as $row => $rows){
-            foreach($rows as $col => $room){
-                if($room === $sign){
+        foreach ($dungeon as $row => $rows) {
+            foreach ($rows as $col => $room) {
+                if ($room === $sign) {
                     return [$row, $col];
                 }
             }
@@ -101,37 +101,36 @@ class Day12 implements SolutionInterface
         $searchRooms = end($path);
         $nextRooms = [];
 
-        foreach($searchRooms as $searchRoom){
+        foreach ($searchRooms as $searchRoom) {
             $searchRoomLvl = $this->signs[$dungeon[$searchRoom[0]][$searchRoom[1]]];
 
-            foreach($this->doors as $door){
+            foreach ($this->doors as $door) {
                 $checkRoom = [$searchRoom[0] + $door[0], $searchRoom[1] + $door[1]];
 
                 // Check if next room is in dungeon floor
-                if($checkRoom[0] >= 0 && $checkRoom[0] < count($dungeon) && $checkRoom[1] >= 0 && $checkRoom[1] < count($dungeon[0])) {
+                if ($checkRoom[0] >= 0 && $checkRoom[0] < count($dungeon) && $checkRoom[1] >= 0 && $checkRoom[1] < count($dungeon[0])) {
 
                     // Check room lvl. If it is to high skip and check another door. This is reversed for part 2 puzzle
                     $checkRoomLvl = $this->signs[$dungeon[$checkRoom[0]][$checkRoom[1]]];
 
-                    if($reverse){
-                        if($checkRoomLvl < $searchRoomLvl - 1) continue;
+                    if ($reverse) {
+                        if ($checkRoomLvl < $searchRoomLvl - 1) continue;
 
                         // If found entry return
-                        if($dungeon[$checkRoom[0]][$checkRoom[1]] === self::DUNGEON_ENTRY_SIGN || $dungeon[$checkRoom[0]][$checkRoom[1]] === 'a') {
+                        if ($dungeon[$checkRoom[0]][$checkRoom[1]] === self::DUNGEON_ENTRY_SIGN || $dungeon[$checkRoom[0]][$checkRoom[1]] === 'a') {
                             return count($path);
                         }
-                    }
-                    else {
-                        if($checkRoomLvl > $searchRoomLvl + 1) continue;
+                    } else {
+                        if ($checkRoomLvl > $searchRoomLvl + 1) continue;
 
                         // If found exit return
-                        if($dungeon[$checkRoom[0]][$checkRoom[1]] === self::DUNGEON_EXIT_SIGN) {
+                        if ($dungeon[$checkRoom[0]][$checkRoom[1]] === self::DUNGEON_EXIT_SIGN) {
                             return count($path);
                         }
                     }
 
                     // Check if room is looted. If not loot it !!!
-                    if(!$looted[$checkRoom[0]][$checkRoom[1]]) {
+                    if (!$looted[$checkRoom[0]][$checkRoom[1]]) {
                         $nextRooms[] = $checkRoom;
                         $looted[$checkRoom[0]][$checkRoom[1]] = true;
                     };
