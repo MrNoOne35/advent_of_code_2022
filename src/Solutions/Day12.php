@@ -4,11 +4,11 @@ namespace App\Solutions;
 
 use App\Interfaces\SolutionInterface;
 use Exception;
-use JetBrains\PhpStorm\Pure;
 
 class Day12 implements SolutionInterface
 {
     const DUNGEON_ENTRY_SIGN = 'S';
+    const DUNGEON_LOWEST_SIGN = 'a';
     const DUNGEON_EXIT_SIGN = 'E';
 
     private string $inputPath;
@@ -117,7 +117,7 @@ class Day12 implements SolutionInterface
                         if ($checkRoomLvl < $searchRoomLvl - 1) continue;
 
                         // If found entry return
-                        if ($dungeon[$checkRoom[0]][$checkRoom[1]] === self::DUNGEON_ENTRY_SIGN || $dungeon[$checkRoom[0]][$checkRoom[1]] === 'a') {
+                        if ($dungeon[$checkRoom[0]][$checkRoom[1]] === self::DUNGEON_ENTRY_SIGN || $dungeon[$checkRoom[0]][$checkRoom[1]] === self::DUNGEON_LOWEST_SIGN) {
                             return count($path);
                         }
                     } else {
