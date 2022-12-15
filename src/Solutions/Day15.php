@@ -101,6 +101,8 @@ class Day15 implements SolutionInterface
 
     /**
      * Check if coordinates are outside sensor range
+     * It can be measured by getting distance to new coordinates.
+     * If they greater than beacon coordinates than you found lonely beacon
      *
      * @param int $x
      * @param int $y
