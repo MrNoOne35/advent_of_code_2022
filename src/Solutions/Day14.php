@@ -18,6 +18,7 @@ class Day14 implements SolutionInterface
     const START_X = 500;
 
     private array $data;
+    private string $inputPath;
 
     public function __construct(string $inputPath)
     {

@@ -12,8 +12,15 @@
                 <pre class="solution">{$puzzle1}</pre>
             {elseif is_array($puzzle1)}
                 <br>
-                <pre class="solution">{$puzzle1.solution}</pre>
-                <pre class="solution">{$puzzle1.draw}</pre>
+                {if isset($puzzle1.solution)}
+                    <pre class="solution">{$puzzle1.solution}</pre>
+                {/if}
+                {if isset($puzzle1.draw)}
+                    <pre class="solution">{$puzzle1.draw}</pre>
+                {/if}
+                {if isset($puzzle1.time)}
+                    <pre class="solution">Execution time: {$puzzle1.time}</pre>
+                {/if}
             {/if}
 
         {else}
@@ -29,8 +36,15 @@
                 <pre class="solution">{$puzzle2}</pre>
             {elseif is_array($puzzle2)}
                 <br>
-                <pre class="solution">{$puzzle2.solution}</pre>
-                <pre class="solution">{$puzzle2.draw}</pre>
+                {if isset($puzzle2.solution)}
+                    <pre class="solution">{$puzzle2.solution}</pre>
+                {/if}
+                {if isset($puzzle2.draw)}
+                    <pre class="solution">{$puzzle2.draw}</pre>
+                {/if}
+                {if isset($puzzle2.time)}
+                    <pre class="solution">Execution time: {$puzzle2.time}</pre>
+                {/if}
             {/if}
         {else}
             <b class="nosolution">No solution yet</b>
