@@ -4,9 +4,9 @@ namespace App\Solutions;
 
 use App\Interfaces\SolutionInterface;
 use Exception;
+use JetBrains\PhpStorm\Pure;
 
-// Part 1 execution time is around 43 seconds
-// Part 2 execution time is around 43 minutes xD
+// Part 1 && 2 execution time is around 2 minutes
 
 class Day24 implements SolutionInterface
 {
@@ -61,7 +61,8 @@ class Day24 implements SolutionInterface
         return ['solution' => $this->solutionPart2, 'time' => $this->getExecutionTime($startTime)];
     }
 
-    private function findPath(array $map, array $blizzards){
+    private function findPath(array $map, array $blizzards): array
+    {
         $this->cycles = 1;
 
         foreach ($blizzards as $blizzard) {
@@ -79,8 +80,8 @@ class Day24 implements SolutionInterface
             }
         }
 
-        $ans1 = -1;
-        $ans2 = -1;
+        $result1 = -1;
+        $result2 = -1;
 
         $q = [[$map['startX'], $map['startY'], 0, 0]];
         $hash = $map['startX'] | ($map['startY'] << 16);
@@ -109,11 +110,11 @@ class Day24 implements SolutionInterface
                 if (($phase == 1) and ($x1 == $map['startX']) and ($y1 == $map['startY'])) {
                     $phase1 = $phase + 1;
                 } elseif (($phase != 1) and ($x1 == $map['endX']) and ($y1 == $map['endY'])) {
-                    if ($ans1 < 0) {
-                        $ans1 = $step;
+                    if ($result1 < 0) {
+                        $result1 = $step;
                     }
                     if ($phase == 2) {
-                        $ans2 = $step;
+                        $result2 = $step;
                         break 2;
                     }
                     $phase1 = $phase + 1;
@@ -143,22 +144,24 @@ class Day24 implements SolutionInterface
 
             $visited[$hashPhased] = true;
         }
-        return [strval($ans1), strval($ans2)];
+        return [strval($result1), strval($result2)];
     }
 
     private function gcd(int $a, int $b): int
     {
         $a1 = max($a, $b);
         $b1 = min($a, $b);
+
         while ($b1 != 0) {
             $t = $b1;
             $b1 = $a1 % $b1;
             $a1 = $t;
         }
+
         return $a1;
     }
 
-    private function lcm(int $a, int $b): int
+    #[Pure] private function lcm(int $a, int $b): int
     {
         return abs($a) * intdiv(abs($b), $this->gcd($a, $b));
     }
